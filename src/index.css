@@ -1,68 +1,56 @@
+@import "tailwindcss";
+
+/* Base styles for consistent theming */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+  --background-primary: #121212;
+  --background-secondary: #1E1E1E;
+  --background-tertiary: #2D2D2D;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E1E1E1;
+  --text-tertiary: #A0A0A0;
+  --button-primary: #3700B3;
+  --button-secondary: #6200EE;
+  --button-tertiary: #BB86FC;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* Tailwind custom utilities using CSS custom properties */
+@layer utilities {
+  .bg-background-primary { background-color: var(--background-primary); }
+  .bg-background-secondary { background-color: var(--background-secondary); }
+  .bg-background-tertiary { background-color: var(--background-tertiary); }
+  
+  .text-text-primary { color: var(--text-primary); }
+  .text-text-secondary { color: var(--text-secondary); }
+  .text-text-tertiary { color: var(--text-tertiary); }
+  
+  .bg-button-primary { background-color: var(--button-primary); }
+  .bg-button-secondary { background-color: var(--button-secondary); }
+  .bg-button-tertiary { background-color: var(--button-tertiary); }
+  
+  .border-background-tertiary { border-color: var(--background-tertiary); }
+  .hover\:text-button-tertiary:hover { color: var(--button-tertiary); }
+  .hover\:bg-button-primary:hover { background-color: var(--button-primary); }
+  .focus\:ring-button-secondary:focus { --tw-ring-color: var(--button-secondary); }
 }
-a:hover {
-  color: #535bf2;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+#root {
+  min-height: 100vh;
 }
