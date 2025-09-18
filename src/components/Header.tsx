@@ -207,11 +207,13 @@ const Header: React.FC = () => {
             <div className="relative profile-container">
               <button
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
-                className="flex items-center gap-2 text-text-primary hover:text-accent-primary transition-all duration-200 p-1 rounded-md hover:bg-surface-overlay"
+                className="flex items-center gap-2 text-accent-primary transition-all duration-200 p-1 rounded-md group cursor-pointer"
                 aria-label="Profile menu"
               >
-                <div className="w-9 h-9 bg-gradient-to-r from-accent-primary to-accent-tertiary rounded-lg flex items-center justify-center shadow-lg ring-2 ring-surface-border">
-                  <span className="text-black text-base font-bold">U</span>
+                <div className="w-9 h-9 hover:bg-accent-primary rounded-lg flex items-center justify-center shadow-lg ring-2 ring-surface-border transition-colors duration-200 group-hover:bg-accent-primary">
+                  <span className="text-accent-primary hover:text-text-primary text-base font-bold transition-colors duration-200">
+                    U
+                  </span>
                 </div>
                 <HiChevronDown
                   className={`w-4 h-4 transition-transform duration-200 ${
