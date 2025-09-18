@@ -4,7 +4,7 @@ import {
   createRouter,
 } from "@tanstack/react-router";
 import MainLayout from "./layout/MainLayout";
-import Base from "./pages/Home/base";
+import Home from "./pages/Dashboard/home";
 
 // Define the root route with MainLayout
 export const rootRoute = createRootRoute({
@@ -15,7 +15,7 @@ export const rootRoute = createRootRoute({
 export const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: Base,
+  component: Home,
 });
 
 export const dashboardRoute = createRoute({

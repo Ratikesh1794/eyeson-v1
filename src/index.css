@@ -3,13 +3,109 @@
 /* Base styles for consistent theming */
 :root {
   color-scheme: dark;
-  --background-primary: #121212;
-  --background-secondary: #1E1E1E;
-  --background-tertiary: #2D2D2D;
+  --background-primary: #000000;
+  --background-secondary: rgba(0, 0, 0, 0.95);
+  --background-tertiary: rgba(0, 0, 0, 0.6);
   --text-primary: #FFFFFF;
   --text-secondary: #E1E1E1;
-  --text-tertiary: #A0A0A0;
-  --button-primary: #3700B3;
-  --button-secondary: #6200EE;
-  --button-tertiary: #BB86FC;
+  --text-tertiary: #9CA3AF;
+  --accent-primary: #FBBF24;
+  --accent-secondary: #F59E0B;
+  --accent-tertiary: #D97706;
+  --surface-overlay: rgba(255, 255, 255, 0.05);
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --danger: #EF4444;
+}
+
+/* Apply base styles to body and html */
+html, body {
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+}
+
+/* Ensure full height */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+/* Custom utility classes for backgrounds */
+.bg-background-primary {
+  background-color: var(--background-primary);
+}
+
+.bg-background-secondary {
+  background-color: var(--background-secondary);
+}
+
+.bg-background-tertiary {
+  background-color: var(--background-tertiary);
+}
+
+.bg-surface-overlay {
+  background-color: var(--surface-overlay);
+}
+
+/* Custom utility classes for text colors */
+.text-text-primary {
+  color: var(--text-primary);
+}
+
+.text-text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.text-accent-primary {
+  color: var(--accent-primary);
+}
+
+.text-accent-secondary {
+  color: var(--accent-secondary);
+}
+
+.text-accent-tertiary {
+  color: var(--accent-tertiary);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+/* Custom utility classes for accent backgrounds */
+.bg-accent-primary {
+  background-color: var(--accent-primary);
+}
+
+.bg-accent-secondary {
+  background-color: var(--accent-secondary);
+}
+
+.bg-accent-tertiary {
+  background-color: var(--accent-tertiary);
+}
+
+.bg-danger {
+  background-color: var(--danger);
+}
+
+/* Custom utility classes for borders */
+.border-surface-border {
+  border-color: var(--surface-border);
+}
+
+/* Hover variants */
+.hover\:text-accent-primary:hover {
+  color: var(--accent-primary);
+}
+
+.hover\:text-accent-secondary:hover {
+  color: var(--accent-secondary);
+}
+
+.hover\:bg-surface-overlay:hover {
+  background-color: var(--surface-overlay);
 }
