@@ -109,3 +109,84 @@ html, body, #root {
 .hover\:bg-surface-overlay:hover {
   background-color: var(--surface-overlay);
 }
+
+/* Custom scrollbar styles for horizontal scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Popup animations */
+@keyframes popup-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -100%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+}
+
+/* Thumbnail levitation animation - fixed to avoid blinking */
+@keyframes thumbnail-to-preview {
+  0% {
+    opacity: 0.95;
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  40% {
+    opacity: 0.97;
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  }
+}
+
+/* Content fade in animation */
+@keyframes content-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-popup-in {
+  animation: popup-in 0.2s ease-out forwards;
+}
+
+.animate-thumbnail-to-preview {
+  animation: thumbnail-to-preview 0.25s ease-out forwards;
+}
+
+.animate-content-fade-in {
+  animation: content-fade-in 0.2s ease-out 0.15s forwards;
+  opacity: 0;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
