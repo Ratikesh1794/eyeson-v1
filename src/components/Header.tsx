@@ -94,9 +94,7 @@ const Header: React.FC = () => {
     "Home",
     "TV Shows",
     "Movies",
-    "New & Popular",
-    "My List",
-    "Browse by Languages",
+    "My List"
   ];
 
   const handleSearchToggle = () => {
