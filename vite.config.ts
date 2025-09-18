@@ -3,6 +3,13 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-})
+export default defineConfig(({ mode }) => ({
+  plugins: [
+    react({
+      babel: {
+        plugins: mode === 'development' ? ['@locator/babel-jsx/dist'] : []
+      }
+    }),
+    tailwindcss()
+  ],
+}))

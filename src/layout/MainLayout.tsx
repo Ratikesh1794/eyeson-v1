@@ -6,14 +6,14 @@ import Footer from "../components/Footer";
 // Main Layout component
 const MainLayout: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-background-secondary">
+    <div className="flex flex-col min-h-screen w-screen bg-background-secondary">
       <Header />
-      <main className="flex-grow p-4">
+      <div className="flex-grow p-4 pt-20 md:pt-2">
         {/* Page Area - will be populated by the router outlet */}
-        <div className="bg-background-tertiary p-4">
+        <div className="bg-background-tertiary p-4 h-full w-full">
           <Outlet />
         </div>
-      </main>
+      </div>
       <Footer />
     </div>
   );
