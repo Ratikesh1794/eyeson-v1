@@ -137,7 +137,7 @@ export default function ThumbnailPopup({ item, position, thumbnailRect, onClose 
     // If we have thumbnail info, position the popup directly at its final position
     // without animating from the thumbnail dimensions
     if (thumbnailRect) {
-      const finalWidth = 320; // w-80 = 20rem = 320px
+      const finalWidth = 300; // Reduced width for smaller popup
       
       // Center the popup on the original thumbnail
       const newX = thumbnailRect.x - ((finalWidth - thumbnailRect.width) / 2);
@@ -161,14 +161,14 @@ export default function ThumbnailPopup({ item, position, thumbnailRect, onClose 
       popup.style.top = `${adjustedY}px`;
       popup.style.width = `${finalWidth}px`;
       popup.style.height = 'auto';
-      popup.style.minHeight = '200px'; // Minimum height for proper display
+      popup.style.minHeight = '400px'; // Set height for 3:4 ratio (300:400)
       
       // Ensure popup doesn't extend beyond bottom of viewport
       const maxHeight = viewportHeight - adjustedY - 20;
       popup.style.maxHeight = `${maxHeight}px`;
       
       // If max height is too small, try repositioning above thumbnail
-      if (maxHeight < 200 && thumbnailRect.y > 300) {
+      if (maxHeight < 400 && thumbnailRect.y > 450) {
         const topPosition = Math.max(safeAreaTop, thumbnailRect.y - rect.height - 10);
         popup.style.top = `${topPosition}px`;
         popup.style.maxHeight = `${thumbnailRect.y - topPosition - 10}px`;
@@ -239,7 +239,7 @@ export default function ThumbnailPopup({ item, position, thumbnailRect, onClose 
         position: 'fixed' as const,
         left: `${thumbnailRect.x}px`,
         top: `${thumbnailRect.y}px`,
-        width: '320px', // Start with final width directly
+        width: '300px', // Reduced width for smaller popup
         height: 'auto',
         transform: 'none',
       }
@@ -252,7 +252,7 @@ export default function ThumbnailPopup({ item, position, thumbnailRect, onClose 
   return (
     <div
       ref={popupRef}
-      className="fixed z-50 bg-[#1a1a1a] rounded-lg shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-[#2a2a2a] overflow-hidden w-80"
+      className="fixed z-50 bg-[#1a1a1a] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] border border-[#2a2a2a] overflow-hidden w-[300px]"
       style={{
         ...popupStyle,
         willChange: 'transform',
@@ -264,8 +264,8 @@ export default function ThumbnailPopup({ item, position, thumbnailRect, onClose 
       onMouseOver={stopPropagation}
     >
       <div className="relative h-full flex flex-col">
-        {/* Video Preview */}
-        <div className="w-full aspect-video rounded-t-lg overflow-hidden flex-shrink-0">
+        {/* Video Preview - Vertical aspect ratio for reels/shorts */}
+        <div className="w-full aspect-[3/4] rounded-xl overflow-hidden">
           {/* Show thumbnail image immediately */}
           <div 
             className="w-full h-full bg-cover bg-center"
@@ -275,6 +275,9 @@ export default function ThumbnailPopup({ item, position, thumbnailRect, onClose 
               transition: 'filter 0.2s ease'
             }}
           />
+          
+          {/* Video player overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-70 pointer-events-none"></div>
           
           {/* Load video after delay */}
           {showVideo && (
@@ -289,19 +292,42 @@ export default function ThumbnailPopup({ item, position, thumbnailRect, onClose 
               style={{ willChange: 'transform' }}
             ></iframe>
           )}
+          
+          {/* Play indicator */}
+          {!showVideo && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+                <div className="w-0 h-0 border-y-6 border-y-transparent border-l-10 border-l-white ml-1"></div>
+              </div>
+            </div>
+          )}
+            
+          {/* Content overlay on bottom 35% */}
+          <div className="absolute bottom-0 left-0 right-0 bg-black/70 backdrop-blur-sm flex flex-col justify-between p-3 pb-4" style={{ height: '40%' }}>
+            <div>
+              <h3 className="font-bold text-base text-white line-clamp-1 overflow-hidden text-ellipsis">{item.name}</h3>
+              
+              <div className="flex items-center gap-1 text-xs text-[#b3b3b3] mt-1 overflow-hidden">
+                <span className="flex-shrink-0">{item.releaseDate}</span>
+                <span className="flex-shrink-0 mx-0.5">•</span>
+                <span className="flex-shrink-0">{item.duration}</span>
+              </div>
+              
+              <p className="mt-2 text-[#e1e1e1] line-clamp-3 overflow-hidden break-words text-xs">{item.description}</p>
+            </div>
+            
+            {/* Action buttons */}
+            <div className="flex gap-2 items-center mt-auto">
+              <button className="flex-1 flex items-center justify-center gap-1 bg-white text-black font-medium py-1 px-2 rounded-full text-xs hover:bg-gray-200 transition-colors">
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                Play
+              </button>
+              <button className="flex items-center justify-center w-6 h-6 rounded-full border border-[#444] text-white hover:bg-[#333] transition-colors">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+              </button>
+            </div>
+          </div>
         </div>
-
-      </div>
-
-      {/* Content - no animation between positions */}
-      <div className="p-4 flex-shrink-0 w-full box-border bg-[#1a1a1a]">
-        <h3 className="font-bold text-lg text-white line-clamp-1 w-full overflow-hidden text-ellipsis whitespace-nowrap">{item.name}</h3>
-        <div className="flex items-center gap-2 text-sm text-[#b3b3b3] mt-1 w-full overflow-hidden">
-          <span className="flex-shrink-0">{item.releaseDate}</span>
-          <span className="flex-shrink-0">•</span>
-          <span className="flex-shrink-0">{item.duration}</span>
-        </div>
-        <p className="mt-2 text-[#e1e1e1] line-clamp-2 w-full overflow-hidden break-words">{item.description}</p>
       </div>
     </div>
   );
